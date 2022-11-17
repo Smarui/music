@@ -4,14 +4,22 @@
 </template>
 
 <script>
+import {onBeforeMount} from "vue";
+import httpRequest from '@/request/index';
+import router from '../router/index.ts';
+import { ref } from 'vue';
+
 export default {
   name: "MusicMainCommon",
   setup(){
-    const cur = (e)=>{
-      e.target.style.backgroundColor = "green";
-      alert("adasdas")
+    onBeforeMount(()=>{
+
+      httpRequest.post(
+          '/'
+      )
+    });
+    return{
     }
-    return{cur}
   }
 }
 </script>

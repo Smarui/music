@@ -1,14 +1,14 @@
 <template>
   <div id="login">
     <el-input
-        v-model="userCount"
+        v-model="curCount"
         placeholder="Please input"
         style="margin-top: 70px"
         size="large"
     />
     <br><br>
     <el-input
-        v-model="passWord"
+        v-model="curPass"
         type="password"
         placeholder="Please input password"
         show-password
@@ -25,21 +25,48 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import router from "../router/index.ts"
+import {onBeforeUnmount, onMounted, ref} from 'vue'
+import qs from 'qs';
+import httpRequest from '@/request/index';
+import router from '../router/index.ts'
 export default {
   name: "MusicLogin",
   setup(){
-
-    const state = ref();
+    onMounted(()=>{
+      console.log("sdsad")
+      document.body.style.backgroundImage = 'url(' + require('../assets/back/main.jpg') + ')'
+      document.body.style.backgroundSize = 'cover'
+      document.body.style.backgroundRepeat = 'no-repeat'
+    })
+    onBeforeUnmount(()=>{
+      document.body.style.backgroundImage=''
+    })
+    const curCount = ref('')
+    const curPass = ref('')
+    let params = new URLSearchParams();
+    console.log(params)
     const onLogin = ()=>{
-
-      alert('ss')
-      router.push("/music-main-common")
+      let userCount = curCount.value;
+      let passWord = curPass.value;
+       httpRequest.post(
+           "/user/login",
+           {
+             userCount,
+             passWord
+           }
+       ).then((data)=>{
+         let curCode = data.code
+         alert(data.message)
+         if (curCode!=200){
+           alert(data.message )
+         }
+         else {
+           router.push("/music-main-common")
+         }
+       })
     }
-    const userCount = ref('')
-    const passWord = ref('')
-    return{userCount , passWord , state , onLogin}
+
+    return{curCount , curPass , onLogin}
   }
 };
 </script>
