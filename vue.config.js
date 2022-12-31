@@ -23,4 +23,13 @@ module.exports = defineConfig({
       }
     }
   }
+  //
+  // chainWebpack: config => {
+  //   config.module
+  //       .rule('')
+  //       .test(/\.(mp3)(\?.*)?$/)
+  //       .use("").loader('url-loader').options({
+  //       name:'assets/[name].[hash:7].[ext]'
+  //   })
+  // }
 })

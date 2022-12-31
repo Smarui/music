@@ -33,12 +33,14 @@ service.interceptors.response.use(
         // 2xx 范围内的状态码都会触发该函数。
         const dataAxios = response.data
         // 这个状态码是和后端约定的
+        console.log(response.data)
         const code = dataAxios.reset
         return dataAxios
     },
     function (error) {
         // 超出 2xx 范围的状态码都会触发该函数。
         // 对响应错误做点什么
+        console.log("出错了")
         console.log(error)
         return Promise.reject(error)
     }
